@@ -2,13 +2,16 @@ package main
 
 import (
     "log"
-
     "github.com/gofiber/fiber/v3"
+    //"net/http"
+
 )
 
 func main() {
     // Initialize a new Fiber app
     app := fiber.New()
+
+    //networkClient := http.Client()
 
     // Define a route for the GET method on the root path '/'
     app.Get("/", func(c fiber.Ctx) error {
