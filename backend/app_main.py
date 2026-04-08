@@ -19,8 +19,7 @@ client_limits = {
     "TPM": 6000
 }
 
-def app_function():
-    user = input("Enter your username")
+def app_function(user):
 
     app_session = classes.appManager(user, True)
 

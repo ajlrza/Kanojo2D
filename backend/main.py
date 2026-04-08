@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+import app_main
 
 app = FastAPI()
 
@@ -6,6 +7,9 @@ app = FastAPI()
 def read_root():
     return {"Hello": "World"}
 
-@app.get("/talk")
+@app.post("/talk")
 async def read_message(request: Request, message: str):
-    request_body = request.body()
+    request_body = await request.json()
+    
+    if (request_body):
+        return app_main.app_function("User")
