@@ -23,4 +23,4 @@ RUN pip3 install --no-cache-dir \
     uvicorn
 
 # Copy backend code into the container
-COPY ./backend /app/src
+COPY ./ /app/src
