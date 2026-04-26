@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Request
-import app_main
+from app_main import app_function
 
 app = FastAPI()
 
@@ -12,4 +12,4 @@ async def read_message(request: Request, message: str):
     request_body = await request.json()
     
     if (request_body):
-        return app_main.app_function("User")
+        return app_function("User")
