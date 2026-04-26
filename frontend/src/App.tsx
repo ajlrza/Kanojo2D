@@ -1,6 +1,16 @@
 import type { Component } from 'solid-js';
+import { createEffect, createSignal } from 'solid-js';
+import { postMessage } from './Services/postMessage';
 
 const App: Component = () => {
+  const [inputValue, setInputValue] = createSignal('');
+
+  async function sendMessage(user: string, message: string): Promise<Response | undefined> {
+    const post_it = await postMessage("test", message);
+    return post_it;
+  }
+
+
   return (
     // h-[100dvh] ensures it fits exactly to the mobile browser's visible viewport
     <div class="relative flex flex-col h-[100dvh] w-full bg-[#0a0a0c] bg-[url('/background.png')] bg-cover bg-center overflow-hidden font-sans text-gray-100 select-none pb-[env(safe-area-inset-bottom)]">
@@ -61,9 +71,11 @@ const App: Component = () => {
             <input 
               type="text" 
               placeholder="Type your response..." 
+              value={inputValue()}
+              onInput={(e) => setInputValue(e.currentTarget.value)}
               class="flex-1 w-full sm:w-auto bg-transparent text-gray-200 outline-none placeholder-gray-600 text-base sm:text-lg drop-shadow-md min-w-[150px]"
             />
-            <button class="text-gray-400 hover:text-cyan-400 transition-colors uppercase text-xs sm:text-sm font-bold tracking-widest flex items-center gap-1 sm:gap-2 p-2 sm:p-0 ml-auto shrink-0">
+            <button onClick={() => sendMessage(inputValue())} class="text-gray-400 hover:text-cyan-400 transition-colors uppercase text-xs sm:text-sm font-bold tracking-widest flex items-center gap-1 sm:gap-2 p-2 sm:p-0 ml-auto shrink-0">
               <span class="hidden sm:inline">Send</span> 
               <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </button>

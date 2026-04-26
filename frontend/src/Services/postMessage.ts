@@ -1,4 +1,4 @@
-export async function postMessage(message: String, user: String) {
+export async function postMessage(message: String, user: String): Promise<Response | undefined> {
     const messageBody: Object | null | undefined = {
         "User": user,
         "Message": message,
@@ -17,9 +17,13 @@ export async function postMessage(message: String, user: String) {
         if (!postMessage.ok) {
             throw new Error("Cannot message Kurisu at the moment");
         }
+        else if (postMessage.ok) {
+            return postMessage;
+        }
 
     } catch (error) {
-        return error
+        console.log(error)
     }
+
 
 }
