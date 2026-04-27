@@ -55,7 +55,7 @@ def app_function(user):
         tokens_used += client_usage_monitor["Tokens Used"]
 
         if (tokens_used > 3000 and tokens_used < 6000 ):
-            print(f"Your tokens is about to exceed: {client_limits["TPM"]} tokens per minute")
+            print(f"Your tokens is about to exceed: 6000 tokens per minute")
             print(tokens_used)
 
         print(chat_completion.choices[0].message.content)
