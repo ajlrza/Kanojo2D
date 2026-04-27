@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app_main import app_function
 
 origins = [
     "https://digital-sanctuary-kappa.vercel.app",  # Common for React/Vue
@@ -17,7 +18,8 @@ app.add_middleware(
 
 @app.post("/")
 def read_root():
-    return {"Hello": "World"}
+    test = app_function("test")
+    return {"Response": test}
 
 @app.post("/talk")
 async def read_message(request: Request, message: str):
