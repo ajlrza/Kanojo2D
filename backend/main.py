@@ -3,14 +3,14 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 origins = [
-    "https://digital-sanctuary-kappa.vercel.app/",  # Common for React/Vue
+    "https://digital-sanctuary-kappa.vercel.app",  # Common for React/Vue
 ]
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,            # Or ["*"] for public APIs          # Support cookies and auth headers
+    allow_origins=origins,            # Or ["*"] for public APIs         # Support cookies and auth headers
     allow_methods=["*"],              # Allow all HTTP methods (GET, POST, etc.)
     allow_headers=["*"],              # Allow all headers
 )
