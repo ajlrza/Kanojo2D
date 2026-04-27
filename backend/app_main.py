@@ -13,7 +13,7 @@ client = Groq(
 )
 
 def appProxy(user: str, message: str):
-    groq_app = classes.appManager(user, message)
+    groq_app = classes.appManager(user)
     talk_to_groq = groq_app.chatGroq(user, sys_prompt.kurisu_personality_prompt(), message)
     return talk_to_groq
 
