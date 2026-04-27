@@ -14,7 +14,7 @@ const App: Component = () => {
     const user = "Okabe"
     const message = formData.get("response_chat") as string;
 
-    if (!message) return;
+    form.reset();
     
     const chat_kurisu = await postMessage(user, message);
 
@@ -22,7 +22,6 @@ const App: Component = () => {
        setKurisuResponse(chat_kurisu)
     }
     
-    form.reset();
   }
 
   function displayKurisuMessage(): string {
