@@ -17,13 +17,12 @@ app.add_middleware(
 )
 
 @app.post("/chatKurisu")
-def read_root():
-    test = app_main.chat_completion
-    return {"Response": test.choices[0].message.content}
+async def read_request(request: Request):
 
-@app.post("/talk")
-async def read_message(request: Request, message: str):
-    request_body = await request.json()
+    body = await request.json()
     
-    if (request_body):
-        pass
+    User = body.get("User")
+    Message = body.get("Message")
+
+    api_response = app_main.appProxy(User, Message)
+    return {"Response": api_response.choices[0].message.content}

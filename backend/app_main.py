@@ -12,6 +12,9 @@ client = Groq(
     api_key=os.getenv("GROQ_API_KEY"),
 )
 
-groq_app = classes.appManager()
+def appProxy(user: str, message: str):
+    groq_app = classes.appManager(user, message)
+    talk_to_groq = groq_app.chatGroq(user, sys_prompt.kurisu_personality_prompt(), message)
+    return talk_to_groq
 
         

@@ -11,11 +11,12 @@ const App: Component = () => {
     const form = e.currentTarget as HTMLFormElement;
 
     const formData = new FormData(form);
-    const user_message = formData.get("response_chat") as string;
+    const user = "Okabe"
+    const message = formData.get("response_chat") as string;
 
-    if (!user_message) return;
+    if (!message) return;
     
-    const chat_kurisu = await postMessage(user_message, "test");
+    const chat_kurisu = await postMessage(user, message);
 
     if (chat_kurisu != undefined) {
        setKurisuResponse(chat_kurisu)
@@ -86,7 +87,7 @@ const App: Component = () => {
           </h3>
           
           <p class="text-[17px] sm:text-xl md:text-2xl lg:text-[28px] text-white font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,1)] leading-snug sm:leading-relaxed">
-            {kurisuResponse}
+            {displayKurisuMessage()}
           </p>
 
           <form
