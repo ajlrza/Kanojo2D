@@ -26,4 +26,4 @@ RUN pip3 install --no-cache-dir \
 COPY . /app/src
 
 # Initialize the server
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "src.app_main:app_function", "--host", "0.0.0.0", "--port", "80"]
