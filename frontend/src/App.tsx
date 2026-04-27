@@ -32,6 +32,8 @@ const App: Component = () => {
       return "Kurisu is sleeping.";
     }
   }
+  
+  console.log(displayKurisuMessage())
 
 
   return (
