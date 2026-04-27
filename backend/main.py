@@ -25,4 +25,4 @@ async def read_request(request: Request):
     Message = body.get("Message")
 
     api_response = app_main.appProxy(User, Message)
-    return {"Response": api_response.choices[0].message.content}
+    return {"Response": api_response}
