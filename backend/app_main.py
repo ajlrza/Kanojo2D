@@ -3,7 +3,7 @@ from groq import Groq
 import os
 import os
 from . import sys_prompt
-import classes
+from . import classes
 from dotenv import load_dotenv
 
 
