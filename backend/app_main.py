@@ -2,7 +2,7 @@ from openai import OpenAI
 from groq import Groq
 import os
 import os
-import sys_prompt
+from . import sys_prompt
 import classes
 from dotenv import load_dotenv
 
