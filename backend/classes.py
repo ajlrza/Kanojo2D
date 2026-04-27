@@ -32,7 +32,7 @@ class appManager:
            elif (choice == "State"):
                 return self.state
            
-      def chatGroq(self, client, sys_prompt_lore, sys_prompt_background, message: str):
+      def chatGroq(self, client, user, sys_prompt_lore, sys_prompt_background, message: str):
           message_response = {}
           if (message != None):
                chat_groq = client.chat.completions.create(
