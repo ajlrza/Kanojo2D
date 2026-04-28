@@ -25,4 +25,4 @@ async def read_request(request: Request):
     Message = body.get("Message")
 
     api_response = app_main.appProxy(User, Message)
-    return api_response.values
+    return api_response
