@@ -39,19 +39,15 @@ const App: Component = () => {
 
         while (true) {
           let {done, value}: any = await kurisuReadMessageStream?.read()
-          if (done == false) {
-            let text = streamDecoder.decode(value)
-            const cleanedText = text.replace(/\n/g, "")
-            setResponseChunk((prev) => prev.replace(/\n/g, "") + cleanedText)
-            console.log(responseChunk())
-            if (done == true) {
-              break;
+          let text = streamDecoder.decode(value)
+          console.log(text)
+          const cleanedText = text.replace(/\n/g, "")
+          setResponseChunk((prev) => prev.replace(/\n/g, "") + cleanedText)
+          if (done == true) {
+            break;
             }
           }
         }
-    }
-    for (const word of responseChunk().split(' ')) {
-      console.log(word);
     }
   }
 
