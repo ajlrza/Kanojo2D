@@ -52,13 +52,21 @@ const App: Component = () => {
           }
         }
       }
+
+    async function delay(ms: number): Promise<void> {
+      return new Promise((resolve) => {
+        const pauseIt = setTimeout(resolve, ms)
+      })
+    }
     
-    function displayChunkFunction(kurisuMessage: String) {
+    async function displayChunkFunction(kurisuMessage: String) {
       let chunkDisplay = ""
 
       for (const word of kurisuMessage.split(" ")) {
           chunkDisplay = chunkDisplay + " " + word
-          console.log(chunkDisplay)
+          
+          await delay(100);
+
           setDisplayChunk(chunkDisplay)
       }
     }
