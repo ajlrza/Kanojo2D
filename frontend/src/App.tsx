@@ -39,8 +39,8 @@ const App: Component = () => {
             let {done, value}: any = await kurisuReadMessageStream?.read()
             if (done == false) {
               let text = streamDecoder.decode(value)
-              const cleanedText = text.trim()
-              typeMessage(cleanedText);
+              const cleanedText = text.replace(/\n/g, "")
+              setResponseChunk((prev) => prev.replace(/\n/g, "") + cleanedText)
             }
             if (done == true) {
               break;
@@ -50,16 +50,6 @@ const App: Component = () => {
   }
 
 
-  function typeMessage(kurisuMessage: string): void {
-      let prevResponseChunk = responseChunk()
-      
-      const delayMessage = setInterval(() => {
-        setResponseChunk((prev) => prev + kurisuMessage)
-        if (responseChunk().length > prevResponseChunk.length) {
-          clearInterval(delayMessage)
-        }
-      }, 10000)
-  }
 
 
 
