@@ -50,6 +50,9 @@ const App: Component = () => {
           }
         }
     }
+    for (const word of responseChunk().split(' ')) {
+      console.log(word);
+    }
   }
 
 
