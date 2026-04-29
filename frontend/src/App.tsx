@@ -4,6 +4,7 @@ import { postMessage } from './Services/postMessage';
 
 const App: Component = () => {
   let [responseChunk, setResponseChunk] = createSignal("");
+  let [displayChunk, setDisplayChunk] = createSignal("");
 
   async function sendMessage(e: SubmitEvent): Promise<void> {
     e.preventDefault();
@@ -39,13 +40,25 @@ const App: Component = () => {
             let {done, value}: any = await kurisuReadMessageStream?.read()
             if (done == false) {
               let text = streamDecoder.decode(value)
-              setResponseChunk((prev) => prev + text);
+              typeMessage(text);
             }
             if (done == true) {
               break;
             }
         }
       }
+  }
+
+
+  function typeMessage(kurisuMessage: string): void {
+      let prevResponseChunk = responseChunk()
+      
+      const delayMessage = setInterval(() => {
+        setResponseChunk((prev) => prev + kurisuMessage)
+        if (responseChunk().length > prevResponseChunk.length) {
+          clearInterval(delayMessage)
+        }
+      }, 1000)
   }
 
 
