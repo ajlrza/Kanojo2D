@@ -40,7 +40,6 @@ const App: Component = () => {
         while (true) {
           let {done, value}: any = await kurisuReadMessageStream?.read()
           let text = streamDecoder.decode(value)
-          console.log(text)
           const cleanedText = text
           .replace(/\n+/g, ' ') 
           .replace(/\s{2,}/g, ' ') 
@@ -58,7 +57,7 @@ const App: Component = () => {
       let chunkDisplay = ""
 
       for (const word of kurisuMessage.split(" ")) {
-          chunkDisplay = word + chunkDisplay
+          chunkDisplay = chunkDisplay + " " + word
           console.log(chunkDisplay)
           setDisplayChunk(chunkDisplay)
       }
