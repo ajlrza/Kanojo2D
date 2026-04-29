@@ -45,8 +45,8 @@ const App: Component = () => {
           .replace(/\s{2,}/g, ' ') 
           .trim();
           setResponseChunk((prev) => prev.replace(/\n/g, "") + cleanedText)
+          displayChunkFunction(responseChunk())
           if (done == true) {
-            displayChunkFunction(responseChunk())
             break;
             }
           }
@@ -55,7 +55,7 @@ const App: Component = () => {
 
     async function delay(ms: number): Promise<void> {
       return new Promise((resolve) => {
-        const pauseIt = setTimeout(resolve, ms)
+        setTimeout(resolve, ms)
       })
     }
     
@@ -65,7 +65,7 @@ const App: Component = () => {
       for (const word of kurisuMessage.split(" ")) {
           chunkDisplay = chunkDisplay + " " + word
           
-          await delay(100);
+          await delay(20);
 
           setDisplayChunk(chunkDisplay)
       }
