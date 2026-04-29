@@ -41,15 +41,28 @@ const App: Component = () => {
           let {done, value}: any = await kurisuReadMessageStream?.read()
           let text = streamDecoder.decode(value)
           console.log(text)
-          const cleanedText = text.replace(/\n/g, "")
+          const cleanedText = text
+          .replace(/\n+/g, ' ') 
+          .replace(/\s{2,}/g, ' ') 
+          .trim();
           setResponseChunk((prev) => prev.replace(/\n/g, "") + cleanedText)
           if (done == true) {
+            displayChunk(responseChunk())
             break;
             }
           }
         }
+      }
+    
+    function displayChunkFunction(kurisuMessage: String) {
+      let chunkDisplay = ""
+
+      for (const word of kurisuMessage.split(" ")) {
+          chunkDisplay = word + chunkDisplay
+          console.log(chunkDisplay)
+          setDisplayChunk(chunkDisplay)
+      }
     }
-  }
 
 
   return (
@@ -104,7 +117,7 @@ const App: Component = () => {
           </h3>
           
           <div class="text-[8px] sm:text-xl md:text-2xl lg:text-[28px] text-white font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,1)] leading-snug sm:leading-relaxed">
-            {responseChunk()}
+            {displayChunk()}
           </div>
 
           <form
