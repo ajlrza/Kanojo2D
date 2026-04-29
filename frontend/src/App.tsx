@@ -47,7 +47,7 @@ const App: Component = () => {
           .trim();
           setResponseChunk((prev) => prev.replace(/\n/g, "") + cleanedText)
           if (done == true) {
-            displayChunk(responseChunk())
+            displayChunkFunction(responseChunk())
             break;
             }
           }
