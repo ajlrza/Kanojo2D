@@ -49,20 +49,15 @@ const App: Component = () => {
           }
         }
 
-        const words = responseChunk().split(" ");
-        let index = 0;
-
         const timerNow = setInterval(() => {
-          if (index < words.length) {
-            // 2. Add a space ONLY if it's not the first word
-            const spacing = index === 0 ? "" : " ";
-            setDisplayChunk((prev) => prev + spacing + words[index]);
-            index++;
-          } else {
-            // 3. Stop once we've run out of words
-            clearInterval(timerNow);
+          for (const word of responseChunk().split(" ")) {
+            setDisplayChunk((prev) => prev + " " + word)
+            console.log(displayChunk())
           }
-        }, 500);
+          if (displayChunk().length == responseChunk().length) {
+          clearInterval(timerNow)
+          }
+        }, 1000)
     }
   }
 
