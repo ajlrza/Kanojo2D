@@ -35,24 +35,20 @@ const App: Component = () => {
         const kurisuReadMessageStream = kurisuMessage.body?.getReader();
         const streamDecoder = new TextDecoder();
 
-        while (true) {
-            let {done, value}: any = await kurisuReadMessageStream?.read()
+        const readMessage = setInterval(() => {
+          let {done, value}: any = kurisuReadMessageStream?.read()
             if (done == false) {
               let text = streamDecoder.decode(value)
               const cleanedText = text.replace(/\n/g, "")
               setResponseChunk((prev) => prev.replace(/\n/g, "") + cleanedText)
-              console.log(value)
             }
             if (done == true) {
-              break;
+              clearInterval(readMessage);
             }
-        }
+          }, 10000
+        )
       }
   }
-
-
-
-
 
 
   return (
