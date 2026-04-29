@@ -41,6 +41,7 @@ const App: Component = () => {
               let text = streamDecoder.decode(value)
               const cleanedText = text.replace(/\n/g, "")
               setResponseChunk((prev) => prev.replace(/\n/g, "") + cleanedText)
+              console.log(value)
             }
             if (done == true) {
               break;
