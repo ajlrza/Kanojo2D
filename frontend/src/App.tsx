@@ -4,6 +4,7 @@ import { postMessage } from './Services/postMessage';
 
 const App: Component = () => {
   let [responseChunk, setResponseChunk] = createSignal("");
+  let [displayChunk, setDisplayChunk] = createSignal("");
 
   async function sendMessage(e: SubmitEvent): Promise<void> {
     e.preventDefault();
@@ -34,20 +35,35 @@ const App: Component = () => {
     if (kurisuMessage != undefined) {
         const kurisuReadMessageStream = kurisuMessage.body?.getReader();
         const streamDecoder = new TextDecoder();
+        let cleanedText;
 
-        const readMessage = setInterval(() => {
-          let {done, value}: any = kurisuReadMessageStream?.read()
-            if (done == false) {
-              let text = streamDecoder.decode(value)
-              const cleanedText = text.replace(/\n/g, "")
-              setResponseChunk((prev) => prev.replace(/\n/g, "") + cleanedText)
-            }
-            if (done == true) {
-              clearInterval(readMessage);
-            }
-          }, 10000
-        )
-      }
+        while (true) {
+          let {done, value}: any = await kurisuReadMessageStream?.read()
+          if (done == false) {
+            let text = streamDecoder.decode(value)
+            const cleanedText = text.replace(/\n/g, "")
+            setResponseChunk((prev) => prev.replace(/\n/g, "") + cleanedText)
+          }
+          if (done == true) {
+            break;
+          }
+        }
+
+        const words = responseChunk().split(" ");
+        let index = 0;
+
+        const timerNow = setInterval(() => {
+          if (index < words.length) {
+            // 2. Add a space ONLY if it's not the first word
+            const spacing = index === 0 ? "" : " ";
+            setDisplayChunk((prev) => prev + spacing + words[index]);
+            index++;
+          } else {
+            // 3. Stop once we've run out of words
+            clearInterval(timerNow);
+          }
+        }, 500);
+    }
   }
 
 
