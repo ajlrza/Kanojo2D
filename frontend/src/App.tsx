@@ -14,7 +14,7 @@ const App: Component = () => {
 
     const formData = new FormData(form);
     const user = "Okabe"
-    const message = formData.get("response_chat") as string;
+    const message = formData.get("userMessage") as string;
 
     await testMessage(message);
 
@@ -147,6 +147,7 @@ const App: Component = () => {
         class="flex items-center gap-4 border-b border-white/20 pb-2 focus-within:border-cyan-500/50 transition-all max-w-4xl mx-auto w-full group">
           <input 
             type="text" 
+            name="userMessage"
             placeholder="Type your response..." 
             class="flex-1 bg-transparent text-gray-100 outline-none placeholder-gray-700 text-lg py-2"
           />
