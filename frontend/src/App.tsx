@@ -123,14 +123,29 @@ const App: Component = () => {
         {/* Main Text Box */}
         <div class="w-full bg-gradient-to-t from-black via-black/90 to-transparent pt-16 sm:pt-20 pb-4 sm:pb-8 px-4 sm:px-8 md:px-16 lg:px-32">
           
-          <h3 class="text-cyan-400 text-lg sm:text-xl md:text-2xl font-bold mb-1 sm:mb-3 drop-shadow-md tracking-wider uppercase">
-            Makise Kurisu
-          </h3>
+        <div class="flex flex-col gap-4 md:gap-8 max-w-5xl w-full px-4 mb-8">
           
-          <div class="text-[6px] sm:text-lg md:text-xl lg:text-[8px] text-white font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,1)] leading-snug sm:leading-relaxed">
-            {displayChunk()}
-            {userMessageDisplay()}
+          {/* 1 & 2: CHARACTER BLOCK */}
+          <div class="flex flex-col self-start">
+            <h3 class="text-cyan-400 text-xs sm:text-sm md:text-base font-bold mb-1 drop-shadow-md tracking-widest uppercase">
+              Makise Kurisu
+            </h3>
+            <div class="text-sm sm:text-lg md:text-xl lg:text-2xl text-white font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,1)] leading-snug lg:leading-relaxed">
+              {displayChunk()}
+            </div>
           </div>
+
+          {/* 3 & 4: USER BLOCK */}
+          <div class="flex flex-col self-end text-right">
+            <h3 class="text-gray-400 text-xs sm:text-sm md:text-base font-bold mb-1 drop-shadow-md tracking-widest uppercase">
+              You
+            </h3>
+            <div class="text-sm sm:text-lg md:text-xl lg:text-2xl text-white/90 font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,1)] leading-snug lg:leading-relaxed">
+              {userMessageDisplay()}
+            </div>
+          </div>
+
+        </div>
 
           <form
            onSubmit={(e) => sendMessage(e)}

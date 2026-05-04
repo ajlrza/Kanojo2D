@@ -40,10 +40,6 @@ class appManager:
                          {
                               "role": "user",
                               "content": message,
-                              "role": "system",
-                              "content": sys_prompt_lore,
-                              "role": "system",
-                              "content": sys_prompt_background
                          }
                     ],
                     model="llama-3.3-70b-versatile"
