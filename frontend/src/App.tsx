@@ -136,7 +136,7 @@ const App: Component = () => {
               You
             </h3>
             <div class="text-base md:text-xl text-gray-300 italic font-medium drop-shadow-lg leading-snug">
-              "{userMessageDisplay()}"
+              {userMessageDisplay()}
             </div>
           </div>
 
