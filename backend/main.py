@@ -26,3 +26,11 @@ async def read_request(request: Request):
 
     api_response = app_main.appProxy(User, Message)
     return api_response['Response']
+
+@app.post("/testChat")
+async def read_request(request: Request):
+
+    body = await request.json()
+
+    requestReq = body.get("Test")
+    return requestReq

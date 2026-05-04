@@ -1,10 +1,11 @@
 import type { Component } from 'solid-js';
 import { createEffect, createSignal } from 'solid-js';
-import { postMessage } from './Services/postMessage';
+import { postMessage, testMessage } from './Services/postMessage';
 
 const App: Component = () => {
   let [responseChunk, setResponseChunk] = createSignal("");
   let [displayChunk, setDisplayChunk] = createSignal("");
+  let [userMessageDisplay, setUserMessageDisplay] = createSignal("");
 
   async function sendMessage(e: SubmitEvent): Promise<void> {
     e.preventDefault();
@@ -15,6 +16,8 @@ const App: Component = () => {
     const user = "Okabe"
     const message = formData.get("response_chat") as string;
 
+    await testMessage(message);
+
     form.reset();
     
     const kurisuMessage: Response | undefined = await postMessage(user, message);
@@ -23,6 +26,7 @@ const App: Component = () => {
     }
     if (kurisuMessage != undefined) {
         readMessage(kurisuMessage);
+        setUserMessageDisplay(message);
     }
   }
 
@@ -123,8 +127,9 @@ const App: Component = () => {
             Makise Kurisu
           </h3>
           
-          <div class="text-[8px] sm:text-xl md:text-2xl lg:text-[28px] text-white font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,1)] leading-snug sm:leading-relaxed">
+          <div class="text-[6px] sm:text-lg md:text-xl lg:text-[8px] text-white font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,1)] leading-snug sm:leading-relaxed">
             {displayChunk()}
+            {userMessageDisplay()}
           </div>
 
           <form

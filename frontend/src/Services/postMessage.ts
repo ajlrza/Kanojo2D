@@ -1,5 +1,3 @@
-
-
 export async function postMessage(user: String, message: String): Promise<Response | undefined> {
     const messageBody: Object | null | undefined = {
         "User": user,
@@ -26,6 +24,30 @@ export async function postMessage(user: String, message: String): Promise<Respon
     } catch (error) {
         console.log(error)
     }
+}
 
+export async function testMessage(message: string): Promise<Response | undefined> {
+    const messageBody: Object | null | undefined = {
+        "Test": message
+    }
 
+    const fastAPIServer: string = "https://digital-sanctuary-ks6k.onrender.com/testChat"
+
+    try {
+        const postMessage = await fetch(fastAPIServer, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(messageBody),
+        })
+        if (!postMessage.ok) {
+            throw new Error("Cannot test message at the moment");
+        }
+        if (postMessage.ok) {
+            return postMessage;
+        }
+    } catch (error) {
+        console.log(error)
+    }
 }
