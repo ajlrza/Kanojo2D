@@ -142,7 +142,9 @@ const App: Component = () => {
 
         </div>
 
-        <form class="flex items-center gap-4 border-b border-white/20 pb-2 focus-within:border-cyan-500/50 transition-all max-w-4xl mx-auto w-full group">
+        <form
+        onSubmit={(e) => sendMessage(e)} 
+        class="flex items-center gap-4 border-b border-white/20 pb-2 focus-within:border-cyan-500/50 transition-all max-w-4xl mx-auto w-full group">
           <input 
             type="text" 
             placeholder="Type your response..." 
