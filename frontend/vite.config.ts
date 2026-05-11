@@ -11,7 +11,7 @@ export default defineConfig({
   build: {
     target: 'esnext',
     rollupOptions: {
-      external: ["solid-js"],
+      external: ["solid-js", "@solid-primitives/resize-observer"],
     }
   },
 });
