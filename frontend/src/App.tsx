@@ -1,7 +1,7 @@
 import type { Component } from 'solid-js';
 import { createEffect, createSignal, on } from 'solid-js';
 import { postMessage, testMessage } from './Services/postMessage';
-import { createElementSize } from '@solid-primitives/resize-observer';
+import { createElementSize } from '@solidnpm install @solid-primitives/resize-observer-primitives/resize-observer';
 
 const App: Component = () => {
   let [responseChunk, setResponseChunk] = createSignal("");
