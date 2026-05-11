@@ -1,7 +1,7 @@
 import type { Component } from 'solid-js';
 import { createEffect, createSignal, on } from 'solid-js';
 import { postMessage, testMessage } from './Services/postMessage';
-import { createElementSize } from '@solidnpm install @solid-primitives/resize-observer-primitives/resize-observer';
+import { createElementSize } from '@solid-primitives/resize-observer';
 
 const App: Component = () => {
   let [responseChunk, setResponseChunk] = createSignal("");
@@ -137,9 +137,9 @@ const App: Component = () => {
 
 
       {/* Visual Novel Dialogue Box Area */}
-      <div ref={setKurisuChunkResize} id="chatBox" class="absolute bottom-0 left-0 right-0 z-30 flex flex-col bg-gradient-to-t from-black via-black/95 to-transparent pt-32 pb-6 px-6">
+      <div id="chatBox" class="absolute bottom-0 left-0 right-0 z-30 flex flex-col bg-gradient-to-t from-black via-black/95 to-transparent pt-32 pb-6 px-6">
         
-        <div class="flex flex-col gap-8 max-w-4xl w-full mx-auto mb-10">
+        <div ref={setKurisuChunkResize} class="flex flex-col gap-8 max-w-4xl w-full mx-auto mb-10">
           
           <div class="flex flex-col self-start max-w-[85%] animate-fade-in">
             <h3 class="text-cyan-400 text-xs md:text-sm font-black mb-2 tracking-[0.3em] uppercase border-l-2 border-cyan-400 pl-3">
