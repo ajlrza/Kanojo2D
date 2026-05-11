@@ -11,20 +11,9 @@ const App: Component = () => {
 
   {/* Resizing logic for dynamic conversation box */}
   const size = createElementSize(kurisuChunkResize);
-
-  {/* Resize maintainer function to handle kurisu yapping */}
-
-  createEffect(() => {
-    if (size.height) {
-      resizeMaintainer();
-    }
-  })
-
- function resizeMaintainer(): void {
-      const element = kurisuChunkResize();
-      if (element) {
-         element.style.overflowY = 'scroll';
-      }
+  const element = kurisuChunkResize();
+  if (element) {
+      element.style.overflowY = 'auto';
   }
 
   {/* SolidJS Listener if kurisu is chatting too much so we gotta add scrollbar */}
