@@ -1,11 +1,34 @@
 import type { Component } from 'solid-js';
-import { createEffect, createSignal } from 'solid-js';
+import { createEffect, createSignal, on } from 'solid-js';
 import { postMessage, testMessage } from './Services/postMessage';
+import { createElementSize } from '@solid-primitives/resize-observer';
 
 const App: Component = () => {
   let [responseChunk, setResponseChunk] = createSignal("");
   let [displayChunk, setDisplayChunk] = createSignal("");
   let [userMessageDisplay, setUserMessageDisplay] = createSignal("");
+  let [kurisuChunkResize, setKurisuChunkResize] = createSignal<HTMLDivElement>();
+
+  {/* Resizing logic for dynamic conversation box */}
+  const size = createElementSize(kurisuChunkResize);
+
+  {/* Resize maintainer function to handle kurisu yapping */}
+
+  createEffect(() => {
+    if (size.height) {
+      resizeMaintainer();
+    }
+  })
+
+ function resizeMaintainer(): void {
+      const element = kurisuChunkResize();
+      if (element) {
+         element.style.overflowY = 'scroll';
+      }
+  }
+
+  {/* SolidJS Listener if kurisu is chatting too much so we gotta add scrollbar */}
+
 
   async function sendMessage(e: SubmitEvent): Promise<void> {
     e.preventDefault();
@@ -103,22 +126,18 @@ const App: Component = () => {
         </div>
       </div>
 
-      {/* Character Sprite Layer - FULL BODY ZOOM FIX */}
-      {/* Anchored to top-10 to leave space above her head, flex-start so she hangs down */}
       <div class="absolute inset-x-0 top-[5vh] sm:top-[8vh] pointer-events-none z-0 flex justify-center items-start">
         <img 
           src="./kurisu.png" 
           alt="Makise Kurisu" 
-          /* Changed from 100dvh to 140dvh+ for desktop. 
-            Because she is full body, we OVER-scale the height to zoom the camera in.
-            object-top ensures her head stays visible while her legs clip off the bottom.
-          */
           class="h-[110dvh] sm:h-[130dvh] lg:h-[150dvh] w-auto max-w-none object-contain object-top drop-shadow-[0_0_20px_rgba(0,0,0,0.8)] transition-all duration-300"
         />
       </div>
 
+
+
       {/* Visual Novel Dialogue Box Area */}
-      <div class="absolute bottom-0 left-0 right-0 z-30 flex flex-col bg-gradient-to-t from-black via-black/95 to-transparent pt-32 pb-6 px-6">
+      <div ref={setKurisuChunkResize} id="chatBox" class="absolute bottom-0 left-0 right-0 z-30 flex flex-col bg-gradient-to-t from-black via-black/95 to-transparent pt-32 pb-6 px-6">
         
         <div class="flex flex-col gap-8 max-w-4xl w-full mx-auto mb-10">
           
@@ -126,20 +145,35 @@ const App: Component = () => {
             <h3 class="text-cyan-400 text-xs md:text-sm font-black mb-2 tracking-[0.3em] uppercase border-l-2 border-cyan-400 pl-3">
               Makise Kurisu
             </h3>
+
+            {/*Previous Messages */}
             <div class="text-lg md:text-2xl lg:text-3xl text-white font-medium drop-shadow-[0_2px_10px_rgba(0,0,0,1)] leading-relaxed">
               {displayChunk()}
             </div>
+
+            {/*Current Message */}
+            <div id="kurisuDisplayChunk" class="text-lg md:text-2xl lg:text-3xl text-white font-medium drop-shadow-[0_2px_10px_rgba(0,0,0,1)] leading-relaxed">
+              {displayChunk()}
+            </div>
+
           </div>
 
           <div class="flex flex-col self-end text-right max-w-[75%] animate-fade-in">
             <h3 class="text-gray-500 text-xs md:text-sm font-black mb-2 tracking-[0.3em] uppercase pr-3 border-r-2 border-gray-700">
               You
             </h3>
+
+            {/*Previous Messages */}            
             <div class="text-base md:text-xl text-gray-300 italic font-medium drop-shadow-lg leading-snug">
               {userMessageDisplay()}
             </div>
-          </div>
 
+            {/*Current Message */}
+            <div id="userDisplayChunk" class="text-base md:text-xl text-gray-300 italic font-medium drop-shadow-lg leading-snug">
+              {userMessageDisplay()}
+            </div>
+
+          </div>
         </div>
 
         <form
