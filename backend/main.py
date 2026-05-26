@@ -2,19 +2,19 @@ from fastapi import FastAPI, Request
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from . import app_main
-from "./db_server" import Query
+import json
 
 origins = [
-    "https://digital-sanctuary-kappa.vercel.app",  # Common for React/Vue
+    "https://digital-sanctuary-kappa.vercel.app", 
 ]
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,            # Or ["*"] for public APIs         # Support cookies and auth headers
-    allow_methods=["*"],              # Allow all HTTP methods (GET, POST, etc.)
-    allow_headers=["*"],              # Allow all headers
+    allow_origins=origins,            
+    allow_methods=["*"],             
+    allow_headers=["*"],             
 )
 
 @app.post("/chatKurisu")
@@ -28,7 +28,7 @@ async def read_request(request: Request):
     api_response = app_main.appProxy(User, Message)
     return api_response['Response']
 
-@app.post("/query")
+@app.post("/saveMessage")
 async def read_request(request: Request):
     
     body = await request.json()
@@ -37,8 +37,28 @@ async def read_request(request: Request):
     Message = body.get("message")
     Date = body.get("messageDate")
 
-    db = db_server.
+    with open("python_javascript_bridge.json", "w") as File:
+        json.dump(Message, File)
 
+@app.post("/loadMessage")
+async def read_request(request: Request):
+
+    body = await request.json()
+
+    UserID = body.get("userID")
+
+    with open("python_javascript_bridge.json", "w") as File:
+        json.dump(UserID, File)
+
+@app.post("/loadConversationHistory")
+async def read_request(request: Request):
+
+    body = await request.json()
+
+    UserID = body.get("userID")
+
+    with open("python_javascript_bridge.json", "w") as File:
+        json.dump(UserID)
 
 @app.post("/testChat")
 async def read_request(request: Request):

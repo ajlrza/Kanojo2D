@@ -1,5 +1,11 @@
 import { db } from './config/db'
 
+// what if since the frontend is in TSX too
+// User messages, query, and loading stuff will be sent to TS and Python at the same time
+// Since the frontend logic would dictate how the user is acting right?, so if it
+// wants to load the message (automatically), it sends both to TS and Python, vice versa
+// and through TS, the query stuff could be handed to TS as middleman, to JS, so no more python? nah stillthere is
+
 export async function query(query: String | undefined, object: Object | undefined) {
     const Query = db.Query;
     const Drizzle = db.Drizzle;
